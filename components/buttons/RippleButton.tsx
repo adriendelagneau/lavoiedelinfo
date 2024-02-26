@@ -3,7 +3,6 @@
 import { IRipple, IRippleButtonProps } from '@/types';
 import React, { useState, MouseEvent } from 'react';
 
-
 const RippleButton: React.FC<IRippleButtonProps> = ({
   text,
   buttonClasses = '',
@@ -12,14 +11,18 @@ const RippleButton: React.FC<IRippleButtonProps> = ({
   icon,
   isLoading,
 }) => {
+  // State to manage ripples
   const [ripples, setRipples] = useState<IRipple[]>([]);
 
+  // Function to add a ripple on button click
   const addRipple = (event: MouseEvent<HTMLButtonElement>) => {
+    // Calculate ripple position and size
     const rippleContainer = event.currentTarget.getBoundingClientRect();
     const size = Math.max(rippleContainer.width, rippleContainer.height);
     const x = event.clientX - rippleContainer.left - size / 2;
     const y = event.clientY - rippleContainer.top - size / 2;
 
+    // Create a new ripple object
     const newRipple: IRipple = {
       x,
       y,
@@ -27,28 +30,36 @@ const RippleButton: React.FC<IRippleButtonProps> = ({
       id: Date.now(),
     };
 
+    // Update ripples state with the new ripple
     setRipples((prevRipples) => [...prevRipples, newRipple]);
 
+    // Call onClick if provided
     if (onClick) {
       onClick(event);
     }
   };
 
+  // Function to handle the end of ripple animation
   const handleAnimationEnd = (id: number) => {
+    // Remove the finished ripple from the state
     setRipples((prevRipples) => prevRipples.filter((ripple) => ripple.id !== id));
   };
 
+  // Determine button type or default to 'button'
   const buttonType = type || 'button';
 
+  // Render the RippleButton component
   return (
     <div className="relative">
       <button
         type={buttonType}
-        className={`relative overflow-hidden  hover:bg-opacity-95  ${buttonClasses}`}
+        className={`relative overflow-hidden hover:bg-opacity-95 ${buttonClasses}`}
         onClick={addRipple}
         disabled={isLoading}
       >
+        {/* Render the icon if provided and not in loading state */}
         {icon && !isLoading && <div className="icon-container">{icon}</div>}
+        {/* Render either the text or loading spinner */}
         {!isLoading ? (
           text
         ) : (
@@ -58,6 +69,7 @@ const RippleButton: React.FC<IRippleButtonProps> = ({
             </span>
           </div>
         )}
+        {/* Map over ripples and render each one */}
         {ripples.map((ripple) => (
           <span
             key={ripple.id}
