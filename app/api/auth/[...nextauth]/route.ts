@@ -9,7 +9,6 @@ import { loginSchema } from "@/lib/zod/schema";
 
 // Define authentication options
  const authOptions: AuthOptions = {
-  secret: process.env.NEXTAUTH_SECRET,
   providers: [
     // Credentials-based authentication
     CredentialsProvider({
@@ -92,7 +91,8 @@ import { loginSchema } from "@/lib/zod/schema";
       }
       return token;
     },
-  }
+   },
+   secret: process.env.NEXTAUTH_SECRET,
 };
 
 // Initialize the nextAuth handler with the provided options
