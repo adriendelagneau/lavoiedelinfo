@@ -65,23 +65,23 @@ export const registerWithCredential = async (data: IRegisterSchema) => {
     }
 };
 
-// export const verifyEmail = async (token: string) => {
-//     await dbConnect()
+export const verifyEmail = async (token: string) => {
+    await dbConnect()
 
-//     try {
-//         const { user } = verifyToken(token)
+    try {
+        const { user } = verifyToken(token)
 
-//         const userExist = await User.findOne({ email: user.email })
+        const userExist = await User.findOne({ email: user.email })
 
-//         if (userExist) return { msg: "verify success !" }
+        if (userExist) return { error: "user already exist !" }
 
-//         const newUser = new User(user)
+        const newUser = new User(user)
 
-//         await newUser.save()
-//         return NextResponse.json({ msg: "verify success" })
-//     } catch (err) {
-//         return NextResponse.json({ error: err })
-//     }
-// };
+        await newUser.save()
+        return ({ msg: "verify success" })
+    } catch (err) {
+        return ({ error: err })
+    }
+};
 
 
