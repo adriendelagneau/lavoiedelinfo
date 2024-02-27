@@ -10,7 +10,7 @@ const LoginPage = () => {
       
     
     <Link href="/register" className="mt-9 group">
-      Pas encore de compte ? <span className='group-hover:underline'>S'ENREGISTRER</span> 
+      Pas encore de compte ? <span className='group-hover:underline'>S&apos;ENREGISTRER</span> 
       </Link>
       </div>
   )
