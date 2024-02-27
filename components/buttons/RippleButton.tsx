@@ -63,7 +63,7 @@ const RippleButton: React.FC<IRippleButtonProps> = ({
         {!isLoading ? (
           text
         ) : (
-          <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]">
+          <div className="inline-block h-6 w-6 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]">
             <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
               Loading...
             </span>
@@ -73,7 +73,7 @@ const RippleButton: React.FC<IRippleButtonProps> = ({
         {ripples.map((ripple) => (
           <span
             key={ripple.id}
-            className="absolute rounded-full opacity-30 bg-slate-100"
+            className="absolute rounded opacity-30 bg-slate-100"
             style={{
               left: ripple.x + 'px',
               top: ripple.y + 'px',

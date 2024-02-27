@@ -3,8 +3,8 @@
 import ContactFormEmail from "@/emails/contact-form-email";
 import { dbConnect } from "@/lib/dbConnect";
 import User from "@/lib/models/User";
-import { registerSchema } from "@/lib/zod/schema";
-import { IRegisterSchema } from "@/types";
+import { forgotPasswordSchema, registerSchema } from "@/lib/zod/schema";
+import { IForgotPasswordSchema, IRegisterSchema } from "@/types";
 import { generateToken, verifyToken } from "@/utils/token";
 import bcrypt from "bcryptjs";
 import { Resend } from 'resend'
@@ -40,6 +40,7 @@ export const registerWithCredential = async (data: IRegisterSchema) => {
 
         // Initialize the Resend library with the API key
         const resend = new Resend(RESEND_API_KEY);
+
 
         // Prepare data for the email
         let message = "Hello World";
@@ -85,3 +86,47 @@ export const verifyEmail = async (token: string) => {
 };
 
 
+export const forgotPasswordWitnCredentials = async (data: IForgotPasswordSchema) => {
+
+    await dbConnect()
+
+    const validationResult = forgotPasswordSchema.safeParse(data);
+
+    if (!validationResult.success) {
+
+        return ({ errors: "falidation" });
+    }
+
+    try {
+        const user = await User.findOne({ email: validationResult.data.email })
+        if (!user) throw new Error("email do not exist");
+
+
+
+        if (user?.provider !== 'credentials') {
+            throw new Error(`this account is signed with ${user?.provider} you can t use  this function`)
+        }
+
+        const token = generateToken({ user: user._id })
+
+        const resend = new Resend('re_K8wxihkq_NZ4CUyMECA3pgjKJ32Cv25Aq');
+        let message = "hello wold"
+        // let name = validationResult.data.name
+        let email = validationResult.data.email
+        let url = `${BASE_URL}/reset_password?token=${token}`
+
+        await resend.emails.send({
+            from: 'onboardding@resend.dev',
+            to: [email],
+            subject: 'Changement de mot de passe',
+            text: `Liens pour changer votre mot de passe`,
+            react: ContactFormEmail({ email, url })
+        })
+
+
+        return ({ msg: "change password success" })
+    } catch (err) {
+        console.log(err)
+        return ({ errors: err })
+    }
+}

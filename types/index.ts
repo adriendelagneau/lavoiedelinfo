@@ -1,6 +1,6 @@
-import { registerSchema } from '@/lib/zod/schema';
 import  { ReactNode, MouseEvent } from 'react';
 import { z } from "zod";
+import { forgotPasswordSchema, loginSchema, registerSchema } from '@/lib/zod/schema';
 
 // Ripple button
 export interface IRippleButtonProps {
@@ -20,3 +20,5 @@ export interface IRipple {
   
 // based on Zod schema
 export type IRegisterSchema = z.infer<typeof registerSchema>;
+export type ILoginSchema = z.infer<typeof loginSchema>;
+export type IForgotPasswordSchema = z.infer<typeof forgotPasswordSchema>;
