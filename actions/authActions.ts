@@ -51,7 +51,7 @@ export const registerWithCredential = async (data: IRegisterSchema) => {
 
         // Send the email using Resend library
         await resend.emails.send({
-            from: 'la-voie-de-linfo.fr',
+            from: 'contact@la-voie-de-linfo.fr',
             to: [email],
             subject: 'Contact form submission',
             text: `Name: ${name}\nEmail: ${data.email}\nMessage: ${message}`,
