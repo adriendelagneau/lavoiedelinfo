@@ -40,7 +40,7 @@ export const registerWithCredential = async (data: IRegisterSchema) => {
         const token = generateToken({ user: { ...validationResult.data, password: hashedPassword } });
 
         // Initialize the Resend library with the API key
-        const resend = new Resend("re_5r6ZHmTe_4qnmmiR58DfJDUxhamfjCJU5");
+        const resend = new Resend(RESEND_API_KEY);
 
 
         // Prepare data for the email
