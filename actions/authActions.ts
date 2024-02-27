@@ -21,6 +21,7 @@ export const registerWithCredential = async (data: IRegisterSchema) => {
     const validationResult = registerSchema.safeParse(data);
     if (!validationResult.success) {
         // If validation fails, return an error with details
+        console.log("validation error")
         return { error: `Validation error: ${validationResult.error.errors}`, };
     }
 
@@ -39,7 +40,7 @@ export const registerWithCredential = async (data: IRegisterSchema) => {
         const token = generateToken({ user: { ...validationResult.data, password: hashedPassword } });
 
         // Initialize the Resend library with the API key
-        const resend = new Resend(RESEND_API_KEY);
+        const resend = new Resend("re_5r6ZHmTe_4qnmmiR58DfJDUxhamfjCJU5");
 
 
         // Prepare data for the email
@@ -50,7 +51,7 @@ export const registerWithCredential = async (data: IRegisterSchema) => {
 
         // Send the email using Resend library
         await resend.emails.send({
-            from: 'onboarding@resend.dev',
+            from: 'untruc@chezoim.xyz',
             to: [email],
             subject: 'Contact form submission',
             text: `Name: ${name}\nEmail: ${data.email}\nMessage: ${message}`,
