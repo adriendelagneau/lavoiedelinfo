@@ -2,8 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { processRegistrationToken } from '@/actions/authActions';
-
+import { verifyEmail } from '@/actions/authActions';
 
 const VerifyPage = ({ searchParams }: { searchParams: { token: string } }) => {
   const [verificationStatus, setVerificationStatus] = useState<string>('');
@@ -14,7 +13,7 @@ const VerifyPage = ({ searchParams }: { searchParams: { token: string } }) => {
     const verifyEmailAsync = async () => {
       if (token) {
         try {
-          const res = await processRegistrationToken(token);
+          const res = await verifyEmail(token);
 
       
 

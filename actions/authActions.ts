@@ -52,7 +52,7 @@ export const registerWithCredential = async (data: IRegisterSchema) => {
         // Send the email using Resend library
         await resend.emails.send({
             from: 'contact@la-voie-de-linfo.fr',
-        //   from: 'onboardding@resend.dev',
+          // from: 'onboardding@resend.dev',
             to: [email],
             subject: 'Contact form submission',
             text: `Name: ${name}\nEmail: ${data.email}\nMessage: ${message}`,
@@ -67,29 +67,25 @@ export const registerWithCredential = async (data: IRegisterSchema) => {
         return { error: `something went wrong: ${err}` };
     }
 };
-export const processRegistrationToken = async (token: string) => {
-    await dbConnect();
+
+export const verifyEmail = async (token: string) => {
+    await dbConnect()
 
     try {
-        const { user } = verifyToken(token);
+        const { user } = verifyToken(token)
 
-        const userExists = await User.findOne({ email: user.email });
+        const userExist = await User.findOne({ email: user.email })
 
-        if (userExists) {
-            return { status: 400, error: "User already exists!" };
-        }
+        if (userExist) return { error: "user already exist !" }
 
-        const newUser = new User(user);
+        const newUser = new User(user)
 
-        await newUser.save();
-
-        return { status: 200, msg: "Registration success" };
+        await newUser.save()
+        return ({ msg: "verify success" })
     } catch (err) {
-        console.error('Error processing registration token:', err);
-        return { status: 500, error: "Internal Server Error" };
+        return ({ error: err })
     }
 };
-
 
 
 export const forgotPasswordWitnCredentials = async (data: IForgotPasswordSchema) => {
