@@ -52,6 +52,7 @@ export const registerWithCredential = async (data: IRegisterSchema) => {
         // Send the email using Resend library
         await resend.emails.send({
             from: 'contact@la-voie-de-linfo.fr',
+        //   from: 'onboardding@resend.dev',
             to: [email],
             subject: 'Contact form submission',
             text: `Name: ${name}\nEmail: ${data.email}\nMessage: ${message}`,
@@ -66,25 +67,29 @@ export const registerWithCredential = async (data: IRegisterSchema) => {
         return { error: `something went wrong: ${err}` };
     }
 };
-
-export const verifyEmail = async (token: string) => {
-    await dbConnect()
+export const processRegistrationToken = async (token: string) => {
+    await dbConnect();
 
     try {
-        const { user } = verifyToken(token)
+        const { user } = verifyToken(token);
 
-        const userExist = await User.findOne({ email: user.email })
+        const userExists = await User.findOne({ email: user.email });
 
-        if (userExist) return { error: "user already exist !" }
+        if (userExists) {
+            return { status: 400, error: "User already exists!" };
+        }
 
-        const newUser = new User(user)
+        const newUser = new User(user);
 
-        await newUser.save()
-        return ({ msg: "verify success" })
+        await newUser.save();
+
+        return { status: 200, msg: "Registration success" };
     } catch (err) {
-        return ({ error: err })
+        console.error('Error processing registration token:', err);
+        return { status: 500, error: "Internal Server Error" };
     }
 };
+
 
 
 export const forgotPasswordWitnCredentials = async (data: IForgotPasswordSchema) => {
@@ -110,7 +115,7 @@ export const forgotPasswordWitnCredentials = async (data: IForgotPasswordSchema)
 
         const token = generateToken({ user: user._id })
 
-        const resend = new Resend('re_K8wxihkq_NZ4CUyMECA3pgjKJ32Cv25Aq');
+        const resend = new Resend(RESEND_API_KEY);
         let message = "hello wold"
         // let name = validationResult.data.name
         let email = validationResult.data.email
