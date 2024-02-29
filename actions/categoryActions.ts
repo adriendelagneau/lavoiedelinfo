@@ -15,6 +15,7 @@ export const getCategories = async () => {
       await dbConnect()
       const categoriesWithSubcategories = await Category.find().populate({
         path: 'sub',
+        model: 'Subcategory',
         select: 'name'
       }).lean().exec();
         return JSON.parse(JSON.stringify(categoriesWithSubcategories)) ;
@@ -41,25 +42,25 @@ export const getCategoryByName = async (name: string) => {
   }
 }
 
-// export const createSub = async () => {
-//   try {
-//     const newSub = await Subcategory.create({
-//       name:"national"
-//     })
-//     return {msg: "success"}
-//   } catch (err) {
-//     console.log(err)
-//   }
-// }
+export const createSub = async () => {
+  try {
+    const newSub = await Subcategory.create({
+      name:"national"
+    })
+    return {msg: "success"}
+  } catch (err) {
+    console.log(err)
+  }
+}
 
-// export const createCat = async () => {
-//   try {
-//     const newCCat = await Category.create({
-//       name: "ecologie",
-//       sub: ["65e0a8269f4d168850406f6f","65e0a8419f4d168850406f77"]
-//     })
-//     return {msg: "success"}
-//   } catch (err) {
-//     console.log(err)
-//   }
-// }
+export const createCat = async () => {
+  try {
+    const newCCat = await Category.create({
+      name: "ecologie",
+      sub: ["65e0b1bf41dd91604a57cb07"]
+    })
+    return {msg: "success"}
+  } catch (err) {
+    console.log(err)
+  }
+}
