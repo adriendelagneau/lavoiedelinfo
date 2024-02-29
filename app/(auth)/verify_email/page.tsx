@@ -3,10 +3,13 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { verifyEmail } from '@/actions/authActions';
-import {Hourglass} from "react-loader-spinner"
+import { Hourglass } from "react-loader-spinner"
+import Link from 'next/link';
+import RippleButton from '@/components/buttons/RippleButton';
+import { Check, X } from 'lucide-react';
 
 const VerifyPage = ({ searchParams }: { searchParams: { token: string } }) => {
-  const [verificationStatus, setVerificationStatus] = useState<string>('verifying');
+  const [verificationStatus, setVerificationStatus] = useState('verifying');
   const { push } = useRouter();
   const token = searchParams?.token;
 
@@ -16,17 +19,15 @@ const VerifyPage = ({ searchParams }: { searchParams: { token: string } }) => {
         try {
           const res = await verifyEmail(token);
 
-
-
           // If registration is successful, redirect to login page
           if (res.msg === 'Verification success') {
             setVerificationStatus('success');
             setTimeout(() => {
               push('/login');
-            }, 3000); // Redirect after 3 seconds (adjust as needed)
+            }, 3000); // Redirect after 3 seconds 
           }
 
-          if(res.error) setVerificationStatus("error")
+          if (res.error) setVerificationStatus("error")
 
         } catch (error) {
           console.error('Error verifying email:', error);
@@ -44,29 +45,35 @@ const VerifyPage = ({ searchParams }: { searchParams: { token: string } }) => {
   console.log(verificationStatus)
 
   return (
-    <div className='flex flex-col items-center justify-center'>
+    <div className='flex flex-col items-center justify-center w-full h-screen'>
       {verificationStatus === 'verifying' ? (
-        <div>
+        <div className=''>
           <Hourglass
             visible={true}
-            height="160"
-            width="160"
+            height="100"
+            width="100"
             ariaLabel="hourglass-loading"
             wrapperStyle={{}}
-            wrapperClass=""
-            colors={['#306cce', '#72a1ed']}
+            wrapperClass="mx-auto"
+            colors={['#172554', '#72a1ed']}
           />
-          <p>Verifying...</p>
+          <p className='pt-12 text-2xl'>Verification...</p>
         </div>
       ) : verificationStatus === 'success' ? (
-        <div>
-          <p>Your registration is successful. You will be redirected to the login page shortly.</p>
-          <button className="your-button-style" onClick={() => push('/login')}>
-            Go to Login
-          </button>
+        <div className='flex flex-col items-center justify-center gap-12'>
+          <div className='flex items-center gap-2'>
+            <Check size={24} color='green' />
+            <p>Your registration is successful. You will be redirected to the login page shortly.</p>
+          </div>
+          <Link href={"/"}>
+            <RippleButton text='Accueil' buttonClasses="rounded text-white py-1 border border-primaryBlue px-3 bg-primaryBlue" />
+          </Link>
         </div>
       ) : verificationStatus === 'error' ? (
-        <p>Registration failed. Please try again or contact support.</p>
+        <div className='flex items-center gap-2'>
+          <X size={24} color='red' />
+          <p>Registration failed. Please try again or contact support.</p>
+        </div>
       ) : null}
     </div>
   );

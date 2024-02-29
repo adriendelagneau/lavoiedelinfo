@@ -1,13 +1,14 @@
 "use client"
 
-import { verifyTokenPassword } from '@/actions/authActions';
-import ResetPasswordForm from '@/components/forms/ResetPasswordForm';
 import React, { useEffect, useState } from 'react'
+import ResetPasswordForm from '@/components/forms/ResetPasswordForm';
+import { verifyTokenPassword } from '@/actions/authActions';
 import { Hourglass } from 'react-loader-spinner';
+import { X } from 'lucide-react';
 
 const ResetPasswordPage = ({ searchParams }: { searchParams: { token: string } }) => {
 
-  const [isVerified, setIsVerified] = useState("")
+  const [verificationStatus, setVerificationStatus] = useState('verifying');
   const [userId, setUserId] = useState("")
   const token = searchParams?.token;
 
@@ -17,45 +18,47 @@ const ResetPasswordPage = ({ searchParams }: { searchParams: { token: string } }
 
         const res = await verifyTokenPassword(token);
         if (res.msg) {
-      
+
           setUserId(res.msg)
-          setIsVerified("success")
+          setVerificationStatus("success")
         }
-        else setIsVerified("error")
+        else setVerificationStatus("error")
 
       } else {
         console.error('Token not found in search params');
-        setIsVerified("error")
+        setVerificationStatus("error")
       }
     };
 
     verifyEmailAsync();
   }, [token]);
 
-  console.log(userId, "UID")
 
   return (
     <div>
-      {isVerified === '' ? (
-         <div>
-         <Hourglass
-           visible={true}
-           height="160"
-           width="160"
-           ariaLabel="hourglass-loading"
-           wrapperStyle={{}}
-           wrapperClass=""
-           colors={['#306cce', '#72a1ed']}
-         />
-         <p>Verification in progress...</p>
-       </div>
-      ) : isVerified === 'success' ? (
-        <div>
-          <ResetPasswordForm userId={userId}/>
+      {verificationStatus === 'verifying' ? (
+        <div className=''>
+          <Hourglass
+            visible={true}
+            height="100"
+            width="100"
+            ariaLabel="hourglass-loading"
+            wrapperStyle={{}}
+            wrapperClass="mx-auto"
+            colors={['#172554', '#72a1ed']}
+          />
+          <p className='pt-12 text-2xl'>Verification...</p>
         </div>
-      ) : (
-        <p>token validation. Please try again or contact support.</p>
-      )}
+      ) : verificationStatus === 'success' ? (
+        <div>
+          <ResetPasswordForm userId={userId} />
+        </div>
+      ) : verificationStatus === 'error' ? (
+        <div className='flex items-center gap-2'>
+          <X size={24} color='red' />
+          <p>Registration failed. Please try again or contact support.</p>
+        </div>
+      ) : null}
     </div>
   )
 }

@@ -129,8 +129,8 @@ export const forgotPasswordWithCredentials = async (data: IForgotPasswordSchema)
         const url = `${BASE_URL}/reset_password?token=${token}`;
 
         await resend.emails.send({
-            from: 'onboardding@resend.dev',
-            //  from: 'contact@la-voie-de-linfo.fr',
+            //from: 'onboardding@resend.dev',
+              from: 'contact@la-voie-de-linfo.fr',
             to: [email],
             subject: 'Changement de mot de passe',
             text: 'Liens pour changer votre mot de passe',
