@@ -6,8 +6,6 @@ const Navigation = async () => {
 
   const category = await getCategories()
 
-  console.log(category)
-
   return (
     <div><Header cat={category } /></div>
   )

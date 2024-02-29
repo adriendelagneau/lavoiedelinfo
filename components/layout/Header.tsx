@@ -17,8 +17,6 @@ const Header: React.FC<{ cat: TCategory[] }> = ({ cat }) => {
   
   const { data: session, status } = useSession()
 
-  console.log(session)
-
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;

@@ -47,7 +47,11 @@ import { loginSchema } from "@/lib/zod/schema";
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
-  ],
+   ],
+   
+   pages: {
+    signOut: '/login',
+},
  
   callbacks: {
     // Handle Google OAuth sign-in

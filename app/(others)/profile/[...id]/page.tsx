@@ -9,6 +9,7 @@ const ProfilePage = async ({ params: { id } }: { params: { id: string } }) => {
   return (
     <div className='min-h-screen'>
       <SignOutButton />
+      
     </div>
   )
 }

@@ -12,7 +12,7 @@ const SignOutButton = () => {
       <RippleButton
         buttonClasses="rounded-full text-white py-1 border border-primaryBlue px-3 bg-primaryBlue"
         text="Sign out"
-        onClick={() => signOut()}
+        onClick={() => signOut({callbackUrl: "/"})}
       />
     </div>
   )
