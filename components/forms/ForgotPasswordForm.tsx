@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { forgotPasswordSchema } from '@/lib/zod/schema';
 import { toast } from 'sonner';
-import { forgotPasswordWitnCredentials } from '@/actions/authActions';
+import { forgotPasswordWithCredentials } from '@/actions/authActions';
 import { IForgotPasswordSchema } from '@/types';
 
 const ForgotPasswordForm = () => {
@@ -24,15 +24,13 @@ const ForgotPasswordForm = () => {
           const { email } = data;
           
           try {
-            // Assuming you have a resetPassword function
-        const res =  await forgotPasswordWitnCredentials({email});
+            const res =  await forgotPasswordWithCredentials({email});
 
-            // Display success notification
-            toast.success(`Password reset instructions sent to ${email}`);
-          } catch (error) {
-            // Display error notification
-   
-            toast.error(`${error}`);
+            if (res.msg) toast.success(res.msg)
+            else toast.error(`Error: ${res.error}`);
+          } catch (err) {
+            console.error("Registration error:", err);
+            toast.error("An error occurred during password changing Please try again.");
           }
         };
       

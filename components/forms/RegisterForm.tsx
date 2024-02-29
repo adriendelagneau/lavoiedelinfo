@@ -24,11 +24,15 @@ const RegisterForm = () => {
   });
 
   const onSubmit: SubmitHandler<IRegisterSchema> = async data => {
-
-    const resp = await registerWithCredential(data)
-
-    if (resp.msg) toast.success(`Email verification send to ${data.email}`)
-    else toast.error(`Error: ${resp.error}`)
+    try {
+      const res = await registerWithCredential(data);
+  
+      if (res.msg) toast.success(`Email verification sent to ${data.email}`);
+      else toast.error(`Error: ${res.error}`);
+    } catch (error) {
+      console.error("Registration error:", error);
+      toast.error("An error occurred during registration. Please try again.");
+    }
   }
 
 

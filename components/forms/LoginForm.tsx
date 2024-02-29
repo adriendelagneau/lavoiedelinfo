@@ -28,27 +28,22 @@ const LoginForm = () => {
 
   const onSubmit: SubmitHandler<ILoginSchema> = async (data) => {
     try {
-      const response = await signIn('credentials', {
+      const res = await signIn('credentials', {
         ...data,
         redirect: false,
       });
 
-
-
-      if (response?.ok) {
+      if (res?.ok) {
         toast.success("Login success")
-        window.location.pathname = '/';
+        window.location.pathname = '/';  // ?? 
       } else {
-        console.error(response?.error);
+        console.error(res?.error);
         toast.error('Credentials do not match!');
       }
     } catch (error) {
       console.error(error);
       toast.error('An unexpected error occurred');
     }
-
-
-
   };
 
   return (

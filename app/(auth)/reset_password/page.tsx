@@ -3,6 +3,7 @@
 import { verifyTokenPassword } from '@/actions/authActions';
 import ResetPasswordForm from '@/components/forms/ResetPasswordForm';
 import React, { useEffect, useState } from 'react'
+import { Hourglass } from 'react-loader-spinner';
 
 const ResetPasswordPage = ({ searchParams }: { searchParams: { token: string } }) => {
 
@@ -36,7 +37,18 @@ const ResetPasswordPage = ({ searchParams }: { searchParams: { token: string } }
   return (
     <div>
       {isVerified === '' ? (
-        <p>Verification in progress...</p>
+         <div>
+         <Hourglass
+           visible={true}
+           height="160"
+           width="160"
+           ariaLabel="hourglass-loading"
+           wrapperStyle={{}}
+           wrapperClass=""
+           colors={['#306cce', '#72a1ed']}
+         />
+         <p>Verification in progress...</p>
+       </div>
       ) : isVerified === 'success' ? (
         <div>
           <ResetPasswordForm userId={userId}/>
