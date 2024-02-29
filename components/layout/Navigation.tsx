@@ -1,5 +1,6 @@
 import React from 'react'
 import { getCategories } from '@/actions/categoryActions'
+import Header from './Header'
 
 const Navigation = async () => {
 
@@ -8,7 +9,7 @@ const Navigation = async () => {
   console.log(category)
 
   return (
-    <div>Navigation</div>
+    <div><Header cat={category } /></div>
   )
 }
 

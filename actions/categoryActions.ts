@@ -2,6 +2,7 @@
 
 import { dbConnect } from "@/lib/dbConnect";
 import Category from "@/lib/models/Category";
+import Subcategory from "@/lib/models/Subcategory";
 
 
 
@@ -43,7 +44,7 @@ export const getCategoryByName = async (name: string) => {
 // export const createSub = async () => {
 //   try {
 //     const newSub = await Subcategory.create({
-//       name:"international"
+//       name:"national"
 //     })
 //     return {msg: "success"}
 //   } catch (err) {
@@ -53,9 +54,9 @@ export const getCategoryByName = async (name: string) => {
 
 // export const createCat = async () => {
 //   try {
-//     const newSub = await Category.create({
+//     const newCCat = await Category.create({
 //       name: "ecologie",
-//       sub: ["65cf9059c472cd33efbc9cb1", "65cf9082c472cd33efbc9cb9"]
+//       sub: ["65e0a8269f4d168850406f6f","65e0a8419f4d168850406f77"]
 //     })
 //     return {msg: "success"}
 //   } catch (err) {

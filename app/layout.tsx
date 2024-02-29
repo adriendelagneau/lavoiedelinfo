@@ -21,8 +21,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <AuthProvider>
-        <Toaster richColors toastOptions={{ classNames: { title: 'text-lg' } }} />
-        {children}
+          <Toaster richColors toastOptions={{ classNames: { title: 'text-lg' } }} />
+          {children}
       </AuthProvider>
       </body>
     </html>
