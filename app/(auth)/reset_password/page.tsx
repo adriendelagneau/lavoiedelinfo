@@ -5,6 +5,8 @@ import ResetPasswordForm from '@/components/forms/ResetPasswordForm';
 import { verifyTokenPassword } from '@/actions/authActions';
 import { Hourglass } from 'react-loader-spinner';
 import { X } from 'lucide-react';
+import Link from 'next/link';
+import RippleButton from '@/components/buttons/RippleButton';
 
 const ResetPasswordPage = ({ searchParams }: { searchParams: { token: string } }) => {
 
@@ -35,7 +37,7 @@ const ResetPasswordPage = ({ searchParams }: { searchParams: { token: string } }
 
 
   return (
-    <div>
+    <div className='flex flex-col items-center justify-center w-full h-screen'>
       {verificationStatus === 'verifying' ? (
         <div className=''>
           <Hourglass
@@ -54,9 +56,14 @@ const ResetPasswordPage = ({ searchParams }: { searchParams: { token: string } }
           <ResetPasswordForm userId={userId} />
         </div>
       ) : verificationStatus === 'error' ? (
-        <div className='flex items-center gap-2'>
-          <X size={24} color='red' />
-          <p>Registration failed. Please try again or contact support.</p>
+        <div className='flex flex-col items-center justify-center gap-12'>
+          <div className='flex items-center gap-2'>
+            <X size={24} color='red' />
+            <p>Registration failed. Please try again or contact support.</p>
+          </div>
+          <Link href={"/"}>
+            <RippleButton text='Accueil' buttonClasses="rounded text-white py-1 border border-primaryBlue px-3 bg-primaryBlue" />
+          </Link>
         </div>
       ) : null}
     </div>
