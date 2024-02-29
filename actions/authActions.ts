@@ -3,8 +3,8 @@
 import ContactFormEmail from "@/emails/contact-form-email";
 import { dbConnect } from "@/lib/dbConnect";
 import User from "@/lib/models/User";
-import { forgotPasswordSchema, registerSchema } from "@/lib/zod/schema";
-import { IForgotPasswordSchema, IRegisterSchema } from "@/types";
+import { forgotPasswordSchema, registerSchema, resetPasswordSchema } from "@/lib/zod/schema";
+import { IForgotPasswordSchema, IRegisterSchema, IResetPasswordSchema } from "@/types";
 import { generateToken, verifyToken } from "@/utils/token";
 import bcrypt from "bcryptjs";
 import { Resend } from 'resend'
@@ -109,16 +109,18 @@ export const forgotPasswordWitnCredentials = async (data: IForgotPasswordSchema)
             throw new Error(`this account is signed with ${user?.provider} you can t use  this function`)
         }
 
+
         const token = generateToken({ user: user._id })
 
         const resend = new Resend(RESEND_API_KEY);
         let message = "hello wold"
         // let name = validationResult.data.name
-        let email = validationResult.data.email
+        let email = user.email
         let url = `${BASE_URL}/reset_password?token=${token}`
 
         await resend.emails.send({
-            from: 'onboardding@resend.dev',
+            from: 'contact@la-voie-de-linfo.fr',
+            //from: 'onboardding@resend.dev',
             to: [email],
             subject: 'Changement de mot de passe',
             text: `Liens pour changer votre mot de passe`,
@@ -131,4 +133,65 @@ export const forgotPasswordWitnCredentials = async (data: IForgotPasswordSchema)
         console.log(err)
         return ({ errors: err })
     }
+}
+
+
+
+export const verifyTokenPassword = async (token: string) => {
+    await dbConnect();
+
+    try {
+        const { user } = verifyToken(token);
+
+        // Debugging line
+        const userExist = await User.findById(user)
+        
+        
+        if (!userExist) {
+            return { error: "User does not exist" };
+        }
+
+        const plainUser = JSON.parse(JSON.stringify(userExist))
+
+
+        return { msg: plainUser._id };
+    } catch (err) {
+        console.log(err)
+        return { error:  "An error occurred during verification" };
+    }
+};
+
+
+export const changePassword = async (userId: string, data: IResetPasswordSchema) => {
+    await dbConnect();
+
+
+   const validationResult = resetPasswordSchema.safeParse(data);
+    if (!validationResult.success) {
+        // If validation fails, return an error with details
+        console.log("validation error")
+        return { error: `Validation error: ${validationResult.error.errors}`, };
+    }
+
+    try {
+        // Check if the user exists
+        const existingUser = await User.findById(userId);
+        if (!existingUser) {
+            return { error: "User not found" };
+        }
+
+        const hashedPassword = await bcrypt.hash(validationResult.data.password, 10);
+        const newUser = await User.findByIdAndUpdate(userId, {
+            password: hashedPassword
+        });
+
+        if (newUser) {
+            return { msg: "Change password success" };
+        }
+    } catch (err) {
+        console.error(err);
+        return { error: "An error occurred during password change" };
+    }
+
+
 }

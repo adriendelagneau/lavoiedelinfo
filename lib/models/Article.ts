@@ -1,4 +1,5 @@
 import mongoose, { Schema } from "mongoose";
+import { number } from "zod";
 
 const imageSchema = new Schema({
   url: { type: String, required: true },
@@ -19,6 +20,7 @@ const articleSchema = new Schema({
   },
   author: { type: Schema.Types.ObjectId, ref: "Author" },
   images: [imageSchema],
+  numberOfViews: { type: number, default: 0}
 }, { timestamps: true });
 
 export default mongoose.models.Article ||

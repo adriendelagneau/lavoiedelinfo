@@ -26,7 +26,7 @@ const ForgotPasswordForm = () => {
           try {
             // Assuming you have a resetPassword function
         const res =  await forgotPasswordWitnCredentials({email});
-      console.log(res, "res")
+
             // Display success notification
             toast.success(`Password reset instructions sent to ${email}`);
           } catch (error) {

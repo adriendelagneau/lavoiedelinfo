@@ -70,9 +70,9 @@ const RippleButton: React.FC<IRippleButtonProps> = ({
           </div>
         )}
         {/* Map over ripples and render each one */}
-        {ripples.map((ripple) => (
+        {ripples.map((ripple, i) => (
           <span
-            key={ripple.id}
+            key={i}
             className="absolute rounded opacity-30 bg-slate-100"
             style={{
               left: ripple.x + 'px',
