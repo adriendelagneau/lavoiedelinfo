@@ -5,12 +5,10 @@ import Category from "@/lib/models/Category";
 import Subcategory from "@/lib/models/Subcategory";
 
 
-
 const BASE_URL = process.env.NEXT_PUBLIC_NEXTAUTH_URL;
 
 export const getCategories = async () => {
 
-  
   try {
       await dbConnect()
       const categoriesWithSubcategories = await Category.find().populate({
@@ -45,7 +43,7 @@ export const getCategoryByName = async (name: string) => {
 export const createSub = async () => {
   try {
     const newSub = await Subcategory.create({
-      name:"national"
+      name:"international"
     })
     return {msg: "success"}
   } catch (err) {
@@ -53,14 +51,14 @@ export const createSub = async () => {
   }
 }
 
-export const createCat = async () => {
-  try {
-    const newCCat = await Category.create({
-      name: "ecologie",
-      sub: ["65e0b1bf41dd91604a57cb07"]
-    })
-    return {msg: "success"}
-  } catch (err) {
-    console.log(err)
-  }
-}
+// export const createCat = async () => {
+//   try {
+//     const newCCat = await Category.create({
+//       name: "ecologie",
+//       sub: ["65e0b1bf41dd91604a57cb07"]
+//     })
+//     return {msg: "success"}
+//   } catch (err) {
+//     console.log(err)
+//   }
+// }
