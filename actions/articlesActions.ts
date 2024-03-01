@@ -140,12 +140,12 @@ export const createArticle = async () => {
               id: "65e0dd9ca38ef2c88cfa3196",
               slug: "international", // You need to replace this with the actual slug
             },
-            author: "65d462b2dbe4f677fb35a1d0",
+            author: "65e1778d83015622adda1a0e",
             images: [
                 { url: "https://res.cloudinary.com/dos8mey8r/image/upload/v1708374346/LeCanard/cute-arctic-mammal-walking-frozen-ice-generated-by-ai_e0sk65.jpg", legend: "Image 1" },
                 { url: "https://res.cloudinary.com/dos8mey8r/image/upload/v1708205392/LeCanard/cute-arctic-mammal-walking-frozen-ice-generated-by-ai_2_faukim.jpg", legend: "Image 2" },
       ],
-            numberOfViews: 1,
+            numberOfViews: 0,
               createdAt: new Date(),
             })
             return true

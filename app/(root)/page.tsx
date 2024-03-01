@@ -8,6 +8,7 @@ export default async function Home() {
 
   const articles = await getArticles({ limit: 6 });
 
+ // await createArticle()
 
   return (
     <main className="w-full mx-auto mt-24 ">
