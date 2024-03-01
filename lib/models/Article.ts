@@ -17,7 +17,7 @@ const articleSchema = new Schema({
     id: { type: Schema.Types.ObjectId, ref: "Subcategory" },
     slug: { type: String,  unique: true },
   },
-  author: { type: Schema.Types.ObjectId, ref: "Author" },
+  author: { type: Schema.Types.ObjectId, ref: "Author", required: true },
   images: [imageSchema],
   numberOfViews: {type: Number, default: 0}
 }, { timestamps: true });

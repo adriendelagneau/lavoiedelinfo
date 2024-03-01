@@ -51,14 +51,14 @@ export const createSub = async () => {
   }
 }
 
-// export const createCat = async () => {
-//   try {
-//     const newCCat = await Category.create({
-//       name: "ecologie",
-//       sub: ["65e0b1bf41dd91604a57cb07"]
-//     })
-//     return {msg: "success"}
-//   } catch (err) {
-//     console.log(err)
-//   }
-// }
+export const createCat = async () => {
+  try {
+    const newCCat = await Category.create({
+      name: "ecologie",
+      sub: ["65e19f848bbb02d4debb8420"]
+    })
+    return {msg: "success"}
+  } catch (err) {
+    console.log(err)
+  }
+}

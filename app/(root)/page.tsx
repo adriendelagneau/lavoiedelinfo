@@ -1,5 +1,5 @@
-//import { createCat, createSub } from "@/actions/categoryActions";
-import { createArticle, getArticles } from "@/actions/articlesActions";
+import { createCat, createSub } from "@/actions/categoryActions";
+import { createArticle, createAuthor, getArticles } from "@/actions/articlesActions";
 import MainGutter from "@/components/MainGutter";
 import MainCard from "@/components/cards/MainCard";
 import Image from "next/image";
@@ -8,7 +8,7 @@ export default async function Home() {
 
   const articles = await getArticles({ limit: 6 });
 
- // await createArticle()
+
 
   return (
     <main className="w-full mx-auto mt-24 ">
