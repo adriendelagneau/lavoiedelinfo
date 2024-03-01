@@ -69,7 +69,8 @@ export const getArticles = async ({
       .sort(sortOptions)
       .populate({
         path: 'author',
-        select: 'name'
+        select: 'name',
+        model: 'Author',
       })
       .lean();
 
@@ -98,11 +99,13 @@ export const getArticleBySlug = async (slug: string): Promise<TArticle> => {
     const article = await Article.findOne({ slug })
       .populate({
         path: 'category',
-        select: 'name'
+        select: 'name',
+        model: 'Category',
       })
       .populate({
         path: 'author', // Assuming 'author' is the field in the Article schema
-        select: 'name image' // Select the fields you want to populate
+        select: 'name image', // Select the fields you want to populate
+        model: 'Author',
       })
       .lean()
       .exec();
