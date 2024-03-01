@@ -7,15 +7,15 @@ const imageSchema = new Schema({
 
 const articleSchema = new Schema({
   title: { type: String, required: true },
-  slug: {type: String, required: true},
+  slug: {type: String, required: true, unique: true},
   content: [{ type: String, required: true }],
   category: {
     id: { type: Schema.Types.ObjectId, ref: "Category", required: true },
-    slug: { type: String, required: true },
+    slug: { type: String, required: true,  unique: true },
   },
   subcategory: {
     id: { type: Schema.Types.ObjectId, ref: "Subcategory" },
-    slug: { type: String },
+    slug: { type: String,  unique: true },
   },
   author: { type: Schema.Types.ObjectId, ref: "Author" },
   images: [imageSchema],
@@ -27,4 +27,4 @@ export default mongoose.models.Article ||
 
 
   
-
+ 

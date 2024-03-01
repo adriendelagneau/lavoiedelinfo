@@ -182,23 +182,52 @@ export const createArticle = async () => {
                 throw err; // Rethrow the error to handle it at a higher level
             }
           };
+
+
+
+          export const increaseViewsById = async (id: string): Promise<TArticle | null> => {
+            await dbConnect();
+        
+            try {
+                // Use Mongoose findByIdAndUpdate to find and update the article by its ID
+                const updatedArticle = await Article.findByIdAndUpdate(
+                    id,
+                    { $inc: { numberOfViews: 1 } }, // Increment the numberOfViews field by 1
+                    { new: true, runValidators: true }
+                ).lean().exec();
+        
+                // If the article is not found, you may want to handle this case accordingly
+                if (!updatedArticle) {
+                    throw new Error("Article not found");
+                }
+        
+                // Convert the MongoDB object to a plain JavaScript object
+                const plainObject = JSON.parse(JSON.stringify(updatedArticle));
+        
+                // Return the updated article as a plain object
+                return plainObject;
+            } catch (err) {
+                console.error(err);
+                throw err; // Rethrow the error to handle it at a higher level
+            }
+        };
           
           
           
-export const createAuthor = async () => {
-  await dbConnect()
-  try {
-    const newAuthor = await Author.create({
-      name: "John Doe",
-      image: "https://res.cloudinary.com/dos8mey8r/image/upload/v1708205392/LeCanard/cute-arctic-mammal-walking-frozen-ice-generated-by-ai_2_faukim.jpg",
-      articles: []
-    })
-    return true
-  } catch (err) {
-    console.log(err);
-          //       throw err; // Rethrow the error to handle it at a higher level
-  }
-          }
+// export const createAuthor = async () => {
+//   await dbConnect()
+//   try {
+//     const newAuthor = await Author.create({
+//       name: "John Doe",
+//       image: "https://res.cloudinary.com/dos8mey8r/image/upload/v1708205392/LeCanard/cute-arctic-mammal-walking-frozen-ice-generated-by-ai_2_faukim.jpg",
+//       articles: []
+//     })
+//     return true
+//   } catch (err) {
+//     console.log(err);
+//           //       throw err; // Rethrow the error to handle it at a higher level
+//   }
+//           }
           
           
           
