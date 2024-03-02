@@ -4,11 +4,16 @@ import MainGutter from "@/components/MainGutter";
 import MainCard from "@/components/cards/MainCard";
 import Image from "next/image";
 import FetchIp from "@/components/FetchIp";
+import { headers } from 'next/headers'
 
 export default async function Home() {
 
   const articles = await getArticles({ limit: 6 });
+  const header = headers()
+  const ip = (header.get('x-forwarded-for') ?? '127.0.0.1').split(',')[0]
 
+
+  console.log(ip)
   // const res = await fetch("http://localhost:3000/api/test")
 
 
@@ -39,7 +44,7 @@ export default async function Home() {
         </div>
     </div>
 
-  <FetchIp />
+  {/* <FetchIp /> */}
 
   </main>
   );
