@@ -3,11 +3,13 @@ import { createArticle, createAuthor, getArticles } from "@/actions/articlesActi
 import MainGutter from "@/components/MainGutter";
 import MainCard from "@/components/cards/MainCard";
 import Image from "next/image";
+import FetchIp from "@/components/FetchIp";
 
 export default async function Home() {
 
   const articles = await getArticles({ limit: 6 });
 
+  // const res = await fetch("http://localhost:3000/api/test")
 
 
   return (
@@ -37,7 +39,7 @@ export default async function Home() {
         </div>
     </div>
 
-  
+  <FetchIp />
 
   </main>
   );
