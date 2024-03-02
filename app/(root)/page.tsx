@@ -3,7 +3,7 @@ import { createArticle, createAuthor, getArticles } from "@/actions/articlesActi
 import MainGutter from "@/components/MainGutter";
 import MainCard from "@/components/cards/MainCard";
 import Image from "next/image";
-import FetchIp from "@/components/FetchIp";
+
 import { headers } from 'next/headers'
 
 export default async function Home() {
@@ -14,7 +14,6 @@ export default async function Home() {
 
 
   console.log(ip)
-  // const res = await fetch("http://localhost:3000/api/test")
 
 
   return (
@@ -44,7 +43,7 @@ export default async function Home() {
         </div>
     </div>
 
-  {/* <FetchIp /> */}
+
 
   </main>
   );
