@@ -4,7 +4,7 @@ export async function POST(req: Request) {
     try {
         const data = await req.json()
     
-       // console.log(data.ip, "dataip")
+      
         
         const visitor = await Visitor.findOne({ ip: data.ip })
         console.log(visitor, "ww")
