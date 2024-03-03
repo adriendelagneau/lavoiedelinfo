@@ -14,7 +14,7 @@ interface SinglePageProps {
 
 const SinglePage: React.FC<SinglePageProps> = async ({ params: { slug } }) => {
 
-  const session = await getSession()
+  //const {session} = await getSession()
 
   const article = await getArticleBySlug(slug)
   const header = headers()
