@@ -1,16 +1,17 @@
 import Visitor from "@/lib/models/Visitor";
+import { NextRequest } from "next/server";
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
     try {
-        const data = await req.json()
+        const { ip } = await req.json();
     
       
         
-        const visitor = await Visitor.findOne({ ip: data.ip })
+        const visitor = await Visitor.findOne({ ip })
         console.log(visitor, "ww")
         if (!visitor) {
-            const newVisitor = await Visitor.create({
-                ip: data.ip,
+            const newVisitor =  Visitor.create({
+                ip,
                 countOfViews: 1
             })
         }
