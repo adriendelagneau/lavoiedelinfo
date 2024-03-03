@@ -4,7 +4,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 export async function POST(req: Request) {
   
     const data = await req.json()
-console.log(data.ip)
+console.log(data.ip, "dataip")
     const visitor = await Visitor.findOne({ ip: data.ip })
     console.log(visitor, "ww")
     if (!visitor) {
