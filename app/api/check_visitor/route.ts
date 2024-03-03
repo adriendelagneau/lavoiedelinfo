@@ -13,14 +13,11 @@ export async function POST(req: Request) {
         if (existingVisitor.countOfViews < 3) {
           // Increment countOfViews if less than 3
           existingVisitor.countOfViews += 1;
-          existingVisitor.lastIncremented = new Date(); // Update lastIncremented only when countOfViews is less than 3
           await existingVisitor.save();
-          console.log('Incremented countOfViews for existing visitor:', existingVisitor);
+          console.log('Incremented numberOfViews for existing visitor:', existingVisitor);
         } else {
-          // countOfViews is already 3 or more, no further increment
-          console.log('countOfViews is already 3 or more for existing visitor:', existingVisitor);
-  
-          // You can customize the response or take additional actions here
+          // Perform a different action if numberOfViews is 3 or more
+          console.log('numberOfViews is already 3 or more for existing visitor:', existingVisitor);
           return new Response("Already 3 views", { status: 200 });
         }
       } else {
@@ -28,7 +25,6 @@ export async function POST(req: Request) {
         const newVisitor = await Visitor.create({
           ip,
           countOfViews: 1,
-          lastIncremented: new Date(),
           // Add other properties as needed
         });
   

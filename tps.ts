@@ -9,24 +9,17 @@ export async function POST(req: Request) {
       const existingVisitor = await Visitor.findOne({ ip });
   
       if (existingVisitor) {
-        const now = new Date();
-        const twentyFourHoursAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
-  
-        // If lastIncremented is more than 24 hours ago, reset the counter
-        if (!existingVisitor.lastIncremented || existingVisitor.lastIncremented < twentyFourHoursAgo) {
-          existingVisitor.countOfViews = 1;
-          existingVisitor.lastIncremented = now;
-        } else {
-          // Increment countOfViews if lastIncremented is within the last 24 hours
+        // Visitor already exists
+        if (existingVisitor.countOfViews < 3) {
+          // Increment countOfViews if less than 3
           existingVisitor.countOfViews += 1;
-        }
+          existingVisitor.lastIncremented = new Date(); // Update lastIncremented only when countOfViews is less than 3
+          await existingVisitor.save();
+          console.log('Incremented countOfViews for existing visitor:', existingVisitor);
+        } else {
+          // countOfViews is already 3 or more, no further increment
+          console.log('countOfViews is already 3 or more for existing visitor:', existingVisitor);
   
-        await existingVisitor.save();
-        console.log('Visitor data:', existingVisitor);
-  
-        // Perform a different action if numberOfViews is 3 or more
-        if (existingVisitor.countOfViews >= 3) {
-          console.log('numberOfViews is already 3 or more for existing visitor:', existingVisitor);
           // You can customize the response or take additional actions here
           return new Response("Already 3 views", { status: 200 });
         }
@@ -48,4 +41,3 @@ export async function POST(req: Request) {
       return new Response("Internal Server Error", { status: 500 });
     }
   }
-
