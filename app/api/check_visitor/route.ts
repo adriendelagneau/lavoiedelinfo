@@ -1,25 +1,26 @@
 import Visitor from "@/lib/models/Visitor";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-    try {
-        const { ip } = await req.json();
-    
-      
-        
-        const visitor = await Visitor.findOne({ ip })
-        console.log(visitor, "ww")
-        if (!visitor) {
-            const newVisitor =  Visitor.create({
-                ip,
-                countOfViews: 1
-            })
-        }
-    } catch (err) {
-        console.log(err)
-  }
- 
+    const data = await req.json()
 
+    console.log(data.ip)
+    
+        const visitor = await Visitor.findOne({ ip: data.ip })
+    
+        console.log(visitor, "ww")
+    
+        if (!visitor) {
+    
+            const newVisitor = await Visitor.create({
+    
+                ip: data.ip,
+    
+                countOfViews: 1
+    
+            })
+    
+        }
    
-    return NextResponse.json("This is a new API route");
+        return new Response("This is a new API route");
   }
