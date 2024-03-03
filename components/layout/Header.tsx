@@ -47,7 +47,7 @@ const Header: React.FC<{ cat: TCategory[] }> = ({ cat }) => {
           <div className={`${showTitle ? '' : 'flex flex-grow gap-6 items-center'}`}>
             <TextSearch size={28} strokeWidth={1} onClick={() => setIsMenuOpen(!isMenuOpen)} className="cursor-pointer" />
             <div className={`${showTitle ? 'hidden' : 'flex flex-grow '}`}>
-              <ul className="hidden gap-4 text-lg capitalize text-lm sm:flex">
+              <ul className="hidden gap-4 text-2xl capitalize text-lm sm:flex">
                 {cat?.map((c, i) => (
                   <li key={i}>
                     <Link href={`/articles?category=${c.name}`} onClick={() => setIsMenuOpen(false)}>{c.name}</Link>
@@ -58,10 +58,10 @@ const Header: React.FC<{ cat: TCategory[] }> = ({ cat }) => {
             </div>
           </div>
 
-          <div className={`${showTitle ? 'absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%] text-3xl hidden sm:inline-block' : 'hidden'}`}><Link href={"/"}> la voie de l&#39;info </Link></div>
+          <div className={`${showTitle ? 'absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%] text-4xl hidden sm:inline-block' : 'hidden'}`}><Link href={"/"}> La Voie de L&#39;Info </Link></div>
 
           {/* Right side */}
-          <div className="flex gap-3">
+          <div className="flex gap-3 text-lg">
             <Link href="/subscribe" >
               <RippleButton text="Subscribe" buttonClasses="rounded-full text-white py-1 border border-primaryBlue px-3 bg-primaryBlue"/>
             </Link>

@@ -43,14 +43,14 @@ const Sidebar: React.FC<SidebarProps> = ({ isMenuOpen, setIsMenuOpen, cat }) => 
 
                     <div className='px-4'>
                         <Link href="/subscribe">
-                            <RippleButton text='Subscribe' buttonClasses='rounded-full text-white py-2 border  px-3 bg-primaryBlue w-full mt-6' onClick={() => setIsMenuOpen(false)}/>
+                            <RippleButton text='Subscribe' buttonClasses='rounded-full text-white py-2 border  px-3 bg-primaryBlue w-full mt-6 text-lg' onClick={() => setIsMenuOpen(false)}/>
                         </Link>
                         <div className='w-full my-9'>
                             <SearchInput setIsMenuOpen={ setIsMenuOpen} />
                         </div>
                     </div>
 
-                    <ul className='w-full h-full py-3 text-lg'>
+                    <ul className='w-full h-full py-3 text-2xl'>
                         {cat?.map((link, i) => (
                             <li key={i} className="relative">
                                 <Link
@@ -72,7 +72,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isMenuOpen, setIsMenuOpen, cat }) => 
                                         onMouseEnter={() => handleMouseEnter(link.name)}
                                         onMouseLeave={handleMouseLeave}
                                     >
-                                        <div className='min-w-[170px] flex'>
+                                        <div className='min-w-[180px] flex'>
                                             <div className='flex-grow h-full'></div>
                                             <ul className=' bg-white min-w-[160px] border'>
                                                 {link.sub.map((subcategory, subIndex) => (

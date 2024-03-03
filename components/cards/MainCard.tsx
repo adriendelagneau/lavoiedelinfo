@@ -11,7 +11,7 @@ const MainCard = ({ article }: { article: TArticle }) => {
             <div className='rounded-sm lg:w-1/2'>
                 <Link href={`${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/article/${article.slug}`}>
                     <Image src={article.images[0].url} width={844} height={482} alt={article.images[0].legend} />
-                    <p className='py-3 text-sm text-gray-800 capitalize'>{article.images[0].legend}</p>
+                    <p className='py-3  text-gray-800 capitalize'>{article.images[0].legend}</p>
                 </Link>
             </div>
 

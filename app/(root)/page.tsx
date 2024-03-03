@@ -18,7 +18,7 @@ export default async function Home() {
       <h1 className="text-5xl font-semibold">
         La Voie De L&rsquo;Info
       </h1>
-      <p className="font-normal ">Votre fenêtre sur l&rsquo;actualité</p>
+      <p className="text-xl">Votre fenêtre sur l&rsquo;actualité</p>
     </div>
 
     <div className="relative flex h-auto gap-6 mx-auto z-5">

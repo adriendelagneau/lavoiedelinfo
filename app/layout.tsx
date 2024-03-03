@@ -24,7 +24,10 @@ export default function RootLayout({
       <body className={`${FrankRuhlLibre.variable}`}>
         <AuthProvider>
           <Toaster richColors toastOptions={{ classNames: { title: 'text-lg' } }} />
+          <div className="font-FrankRuhlLibre">
           {children}
+            
+        </div>
       </AuthProvider>
       </body>
     </html>
