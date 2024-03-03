@@ -1,19 +1,39 @@
 import Visitor from "@/lib/models/Visitor";
-import { NextApiRequest, NextApiResponse } from "next";
+
 
 export async function POST(req: Request) {
+    try {
+      const { ip } = await req.json();
   
-    const data = await req.json()
-console.log(data.ip, "dataip")
-    const visitor = await Visitor.findOne({ ip: data.ip })
-    console.log(visitor, "ww")
-    if (!visitor) {
+      // Check if visitor exists
+      const existingVisitor = await Visitor.findOne({ ip });
+  
+      if (existingVisitor) {
+        // Visitor already exists
+        if (existingVisitor.countOfViews < 3) {
+          // Increment countOfViews if less than 3
+          existingVisitor.countOfViews += 1;
+          await existingVisitor.save();
+          console.log('Incremented numberOfViews for existing visitor:', existingVisitor);
+        } else {
+          // Perform a different action if numberOfViews is 3 or more
+          console.log('numberOfViews is already 3 or more for existing visitor:', existingVisitor);
+          return new Response("Already 3 views", { status: 200 });
+        }
+      } else {
+        // Visitor does not exist, create a new one
         const newVisitor = await Visitor.create({
-            ip: data.ip,
-            countOfViews: 1
-        })
+          ip,
+          countOfViews: 1,
+          // Add other properties as needed
+        });
+  
+        console.log('New Visitor:', newVisitor);
+      }
+  
+      return new Response("Visitor check and creation completed successfully");
+    } catch (error) {
+      console.error('Error in API route:', error);
+      return new Response("Internal Server Error", { status: 500 });
     }
-
-   
-    return new Response("This is a new API route");
   }
