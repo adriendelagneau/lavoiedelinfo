@@ -9,22 +9,26 @@ export async function POST(req: Request) {
       const existingVisitor = await Visitor.findOne({ ip });
   
       if (existingVisitor) {
-        // Visitor already exists
-        if (existingVisitor.countOfViews < 3) {
-          // Increment countOfViews if less than 3
-          existingVisitor.countOfViews += 1;
-          await existingVisitor.save();
-          console.log('Incremented numberOfViews for existing visitor:', existingVisitor);
+        const now = new Date();
+      const twentyFourHoursAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+  
+        // If lastIncremented is more than 24 hours ago, reset the counter
+        if (!existingVisitor.lastIncremented || existingVisitor.lastIncremented < twentyFourHoursAgo) {
+          existingVisitor.countOfViews = 1;
+          existingVisitor.lastIncremented = now;
         } else {
-          // Perform a different action if numberOfViews is 3 or more
-          console.log('numberOfViews is already 3 or more for existing visitor:', existingVisitor);
-          return new Response("Already 3 views", { status: 200 });
+          // Increment countOfViews if lastIncremented is within the last 24 hours
+          existingVisitor.countOfViews += 1;
         }
+  
+        await existingVisitor.save();
+        console.log('Visitor data:', existingVisitor);
       } else {
         // Visitor does not exist, create a new one
         const newVisitor = await Visitor.create({
           ip,
           countOfViews: 1,
+          lastIncremented: new Date(),
           // Add other properties as needed
         });
   

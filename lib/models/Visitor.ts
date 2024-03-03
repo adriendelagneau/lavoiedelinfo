@@ -9,7 +9,10 @@ const VisitorSchema = new mongoose.Schema({
     countOfViews: {
         type: Number,
         required: true,
-        deefault: 0
+        default: 0
+    },
+    lastIncremented: {
+        type: Date
     }
     
 
