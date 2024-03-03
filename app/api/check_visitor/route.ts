@@ -1,7 +1,7 @@
 import Visitor from "@/lib/models/Visitor";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: NextRequest) {
+export async function POST(req: Request) {
     try {
         const { ip } = await req.json();
     
@@ -21,5 +21,5 @@ export async function POST(req: NextRequest) {
  
 
    
-    return new Response("This is a new API route");
+    return NextResponse.json("This is a new API route");
   }
