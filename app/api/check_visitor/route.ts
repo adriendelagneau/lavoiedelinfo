@@ -3,30 +3,41 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
     try {
-      const data = await req.json();
-      console.log(data.ip);
+      const { ip } = await req.json();
   
-      const visitor = await Visitor.findOne({ ip: data.ip });
-      console.log(visitor, "ww");
+      // Check if visitor exists
+      const existingVisitor = await Visitor.findOne({ ip });
   
-      if (!visitor) {
-        // Create a new visitor and wait for it to be created
+      if (existingVisitor) {
+        // Visitor already exists
+        if (existingVisitor.countOfViews < 3) {
+          // Increment countOfViews if less than 3
+          existingVisitor.countOfViews += 1;
+          existingVisitor.lastIncremented = new Date(); // Update lastIncremented only when countOfViews is less than 3
+          await existingVisitor.save();
+          console.log('Incremented countOfViews for existing visitor:', existingVisitor);
+        } else {
+          // countOfViews is already 3 or more, no further increment
+          console.log('countOfViews is already 3 or more for existing visitor:', existingVisitor);
+  
+          // You can customize the response or take additional actions here
+          return new Response(JSON.stringify({ message: "Allready 3 views" }))
+        }
+      } else {
+        // Visitor does not exist, create a new one
         const newVisitor = await Visitor.create({
-          ip: data.ip,
+          ip,
           countOfViews: 1,
+          lastIncremented: new Date(),
+          // Add other properties as needed
         });
   
-        console.log(newVisitor, "New Visitor Created");
+        console.log('New Visitor:', newVisitor);
       }
   
-      return new Response(JSON.stringify({ message: "This is a new API route" }), {
-        headers: { "Content-Type": "application/json" },
-      });
+      return new Response(JSON.stringify({ message: "This is a new API route" }))
     } catch (error) {
-      console.error("Error processing POST request:", error);
-      return new Response(JSON.stringify({ error: "Internal Server Error" }), {
-        status: 500,
-        headers: { "Content-Type": "application/json" },
-      });
+      console.error('Error in API route:', error);
+      return new Response(JSON.stringify({ error: "Internal Server Error" }))
     }
   }

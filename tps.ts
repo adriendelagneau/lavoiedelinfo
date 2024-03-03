@@ -21,7 +21,7 @@ export async function POST(req: Request) {
           console.log('countOfViews is already 3 or more for existing visitor:', existingVisitor);
   
           // You can customize the response or take additional actions here
-          return new Response("Already 3 views", { status: 200 });
+          return new Response(JSON.stringify({ message: "Allready 3 views" }))
         }
       } else {
         // Visitor does not exist, create a new one
@@ -35,9 +35,9 @@ export async function POST(req: Request) {
         console.log('New Visitor:', newVisitor);
       }
   
-      return new Response("Visitor check and creation completed successfully");
+      return new Response(JSON.stringify({ message: "This is a new API route" }))
     } catch (error) {
       console.error('Error in API route:', error);
-      return new Response("Internal Server Error", { status: 500 });
+      return new Response(JSON.stringify({ error: "Internal Server Error" }))
     }
   }
