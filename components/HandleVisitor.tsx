@@ -2,7 +2,7 @@
 
 import React, { useEffect } from 'react'
 import axios from "axios"
-const HandleVisitor = ({ip}) => {
+const HandleVisitor = ({ip}: {ip: string}) => {
 
  
     
