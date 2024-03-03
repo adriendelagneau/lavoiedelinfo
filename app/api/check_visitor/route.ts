@@ -2,25 +2,31 @@ import Visitor from "@/lib/models/Visitor";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-    const data = await req.json()
-
-    console.log(data.ip)
-    
-        const visitor = await Visitor.findOne({ ip: data.ip })
-    
-        console.log(visitor, "ww")
-    
-        if (!visitor) {
-    
-            const newVisitor = await Visitor.create({
-    
-                ip: data.ip,
-    
-                countOfViews: 1
-    
-            })
-    
-        }
-   
-        return new Response("This is a new API route");
+    try {
+      const data = await req.json();
+      console.log(data.ip);
+  
+      const visitor = await Visitor.findOne({ ip: data.ip });
+      console.log(visitor, "ww");
+  
+      if (!visitor) {
+        // Create a new visitor and wait for it to be created
+        const newVisitor = await Visitor.create({
+          ip: data.ip,
+          countOfViews: 1,
+        });
+  
+        console.log(newVisitor, "New Visitor Created");
+      }
+  
+      return new Response(JSON.stringify({ message: "This is a new API route" }), {
+        headers: { "Content-Type": "application/json" },
+      });
+    } catch (error) {
+      console.error("Error processing POST request:", error);
+      return new Response(JSON.stringify({ error: "Internal Server Error" }), {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
   }
