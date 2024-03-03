@@ -3,9 +3,11 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import AuthProvider from "@/components/providers/AuthProvider";
 import { Toaster } from "sonner";
+import { Frank_Ruhl_Libre } from 'next/font/google'
 
 
-const inter = Inter({ subsets: ["latin"] });
+const FrankRuhlLibre = Frank_Ruhl_Libre ({subsets: ['latin'], weight: '400', variable: '--font-FrankRuhlLibre' })
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -19,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${FrankRuhlLibre.variable}`}>
         <AuthProvider>
           <Toaster richColors toastOptions={{ classNames: { title: 'text-lg' } }} />
           {children}

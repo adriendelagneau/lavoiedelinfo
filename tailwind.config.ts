@@ -14,6 +14,9 @@ const config: Config = {
         primaryRed: "#7f1d1d",
         primaryGray: "#6b7280"
       },
+      fontFamily: {     
+        FrankRuhlLibre: ['var(--font-FrankRuhlLibre)'],
+     }
     },
   },
   plugins: [],

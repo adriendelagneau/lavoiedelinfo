@@ -6,7 +6,7 @@ import { TArticle } from '@/types'
 const MainCard = ({ article }: { article: TArticle }) => {
 
     return (
-        <div className='flex flex-col max-w-screen-xl p-3 mx-auto lg:flex-row-reverse'>
+        <div className='flex flex-col max-w-screen-xl p-3 mx-auto lg:flex-row-reverse font-FrankRuhlLibre'>
 
             <div className='rounded-sm lg:w-1/2'>
                 <Link href={`${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/article/${article.slug}`}>

@@ -11,9 +11,9 @@ const VisitorSchema = new mongoose.Schema({
         required: true,
         default: 0
     },
-    lastIncremented: {
-        type: Date
-    }
+    // lastIncremented: {
+    //     type: Date
+    // }
     
 
 }, { timestamps: true })
