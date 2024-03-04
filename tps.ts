@@ -1,43 +1,35 @@
-import Visitor from "@/lib/models/Visitor";
+// pages/index.js
 
+import { useEffect } from 'react';
 
-export async function POST(req: Request) {
-    try {
-      const { ip } = await req.json();
-  
-      // Check if visitor exists
-      const existingVisitor = await Visitor.findOne({ ip });
-  
-      if (existingVisitor) {
-        // Visitor already exists
-        if (existingVisitor.countOfViews < 3) {
-          // Increment countOfViews if less than 3
-          existingVisitor.countOfViews += 1;
-          existingVisitor.lastIncremented = new Date(); // Update lastIncremented only when countOfViews is less than 3
-          await existingVisitor.save();
-          console.log('Incremented countOfViews for existing visitor:', existingVisitor);
-        } else {
-          // countOfViews is already 3 or more, no further increment
-          console.log('countOfViews is already 3 or more for existing visitor:', existingVisitor);
-  
-          // You can customize the response or take additional actions here
-          return new Response(JSON.stringify({ message: "Allready 3 views" }))
-        }
-      } else {
-        // Visitor does not exist, create a new one
-        const newVisitor = await Visitor.create({
-          ip,
-          countOfViews: 1,
-          lastIncremented: new Date(),
-          // Add other properties as needed
-        });
-  
-        console.log('New Visitor:', newVisitor);
+const Home = () => {
+  useEffect(() => {
+    // Run the cron job every 24 hours (24 * 60 * 60 * 1000 milliseconds)
+    const cronJobInterval = 24 * 60 * 60 * 1000;
+
+    const runCronJob = async () => {
+      try {
+        // Call your cron endpoint
+        const response = await fetch('/api/cron');
+        const data = await response.json();
+
+        console.log(data.message);
+      } catch (error) {
+        console.error('Error calling cron endpoint:', error);
       }
-  
-      return new Response(JSON.stringify({ message: "This is a new API route" }))
-    } catch (error) {
-      console.error('Error in API route:', error);
-      return new Response(JSON.stringify({ error: "Internal Server Error" }))
-    }
-  }
+    };
+
+    // Run the cron job immediately when the component mounts
+    runCronJob();
+
+    // Set up the interval to run the cron job every 24 hours
+    const intervalId = setInterval(runCronJob, cronJobInterval);
+
+    // Clean up the interval when the component unmounts
+    return () => clearInterval(intervalId);
+  }, []);
+
+  return <div>Welcome to Next.js!</div>;
+};
+
+export default Home;

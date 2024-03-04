@@ -10,9 +10,7 @@ const HandleVisitor = ({ip}: {ip: string}) => {
     // Check if visitor exists
     const getAsyncVisitor = async () => {
       try {
-        const response = await handleVisitor({ip})
-        console.log(response)
-        
+        const response = await handleVisitor({ ip })
         if (response.msg === "Already 3 views") {
           setCanBeView(false)
         }
@@ -20,7 +18,6 @@ const HandleVisitor = ({ip}: {ip: string}) => {
         console.error('Error while fetching visitor data:', error);
       }
     };
-  
     getAsyncVisitor();
   }, [ip]);
   
