@@ -34,7 +34,7 @@ const ArticlesPage = async ({ searchParams }: { searchParams: GetArticlesParams 
           </h1>
           <ul className='flex justify-center w-full gap-3 mt-6 mb-24'>
             {categories.sub.map((subcategory: TSubcategory, i: number) => (
-              <li key={i} className={`capitalize text-xl ${searchParams.subcategory === subcategory.name && "underline underline-offset-4"}`}>
+              <li key={i} className={`capitalize text-2xl ${searchParams.subcategory === subcategory.name && "underline underline-offset-4"}`}>
                 <Link href={`?category=${searchParams.category}&subcategory=${subcategory.name}`}>
                   {subcategory.name}
                 </Link>

@@ -10,12 +10,11 @@ export default async function Home() {
   const articles = await getArticles({ limit: 6 });
 
 
-
   return (
     <main className="w-full mx-auto mt-24 ">
 
-    <div className="w-full my-10 text-center ">
-      <h1 className="text-5xl font-semibold">
+    <div className="w-full my-10 text-center mb-24">
+      <h1 className="text-6xl">
         La Voie De L&rsquo;Info
       </h1>
       <p className="text-xl">Votre fenêtre sur l&rsquo;actualité</p>

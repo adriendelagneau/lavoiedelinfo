@@ -27,11 +27,9 @@ const HandleVisitor = ({ip}: {ip: string}) => {
 
   return (
     <>
-    <div>HandleVisitor</div>
       {canBeView === false && (
         <div>limit 3 viws/day subscibe for more content</div>
       )}
-      <div>toto</div>
     </>
   )
 }

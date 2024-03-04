@@ -127,38 +127,42 @@ export const getArticleBySlug = async (slug: string): Promise<TArticle> => {
 };
 
 
-export const createArticle = async () => {
+// export const createArticle = async () => {
 
-  try {
+//   try {
     
-    const newOne = await Article.create({
-        title: "Sample Article",
-        slug: "a-readable-title",
-        content: ["Lorem ipsum dolor sit amet. Consectetur adipiscing elit.","Lorem ipsum dolor sit amet. Consectetur adipiscing elit.","Lorem ipsum dolor sit amet. Consectetur adipiscing elit.","Lorem ipsum dolor sit amet. Consectetur adipiscing elit."],
-        category: {
-            id: "65e19fae8bbb02d4debb8441",
-            slug: "ecologie", // You need to replace this with the actual slug
-          },
-          subcategory: {
-              id: "65e19f848bbb02d4debb8420",
-              slug: "international", // You need to replace this with the actual slug
-            },
-            author: "65e19f008bbb02d4debb840c",
-            images: [
-                { url: "https://res.cloudinary.com/dos8mey8r/image/upload/v1708374346/LeCanard/cute-arctic-mammal-walking-frozen-ice-generated-by-ai_e0sk65.jpg", legend: "Image 1" },
-                { url: "https://res.cloudinary.com/dos8mey8r/image/upload/v1708205392/LeCanard/cute-arctic-mammal-walking-frozen-ice-generated-by-ai_2_faukim.jpg", legend: "Image 2" },
-      ],
-            numberOfViews: 0,
-              createdAt: new Date(),
-            })
-            return true
-          } catch (err) {
-              console.log(err);
-              throw err; // Rethrow the error to handle it at a higher level
-          }
+//     const newOne = await Article.create({
+//         title: "Ours Polaires, Les Sentinelles du Changement Climatique dans l'Arctique",
+//         slug: "ours-polaires-changement-climatique",
+//       content: ["Les majestueux ours polaires, emblèmes empreints de la vaste étendue glacée de l'Arctique, se dressent aujourd'hui comme des sentinelles inquiètes face au changement climatique qui bouleverse leur habitat naturel. Au-delà de leur charme puissant et de leur imposante silhouette, ces créatures arctiques incarnent un rôle crucial en tant que gardiens des équilibres écologiques. Cet article plonge dans l'écosystème des ours polaires, mettant en lumière leur statut particulier de sentinelles du changement climatique qui se déroule dans la région la plus septentrionale de notre planète.",
+//         "Les ours polaires, maîtres de l'adaptation à l'austérité glacée, dépendent de la banquise pour leur chasse et leur survie. Leur existence est intimement liée à la préservation de cet écosystème fragile. La fonte accélérée des glaces, conséquence directe du réchauffement climatique, menace leur habitat naturel et perturbe leurs habitudes de chasse. Les implications de ces changements transcendent la survie individuelle de l'ours polaire, impactant l'ensemble de la chaîne alimentaire arctique et la biodiversité régionale.",
+//         "La chasse, élément vital du quotidien des ours polaires, devient un défi croissant à mesure que la glace fond et que les distances entre les plaques de glace augmentent. La réduction du territoire de chasse combinée à la diminution des proies disponibles met en péril la survie de ces prédateurs de l'Arctique. Ces changements dramatiques exigent une compréhension approfondie des liens entre la fonte des glaces, la disponibilité des phoques et la santé globale des populations d'ours polaires.",
+//         "Les ours polaires ne sont pas seulement des victimes du changement climatique, mais également des indicateurs fiables de son étendue. Leur mode de vie et leur dépendance aux conditions de la banquise font d'eux des témoins privilégiés des modifications environnementales rapides et souvent invisibles. En les étudiant, les scientifiques peuvent décrypter les impacts concrets du réchauffement climatique dans l'Arctique et anticiper les répercussions potentielles sur d'autres écosystèmes de la planète.",
+//       "Face à cette réalité inquiétante, des initiatives de conservation se multiplient pour protéger les ours polaires et leur habitat. Cependant, l'urgence d'une action mondiale ne saurait être surestimée. La préservation de l'écosystème arctique dépend de notre capacité collective à atténuer le changement climatique et à adopter des pratiques durables. En agissant rapidement et de manière décisive, nous pouvons non seulement sauver les sentinelles de l'Arctique, mais aussi préserver la richesse de la biodiversité qui dépend de leur existence."],
+//         category: {
+//             id: "65e19fae8bbb02d4debb8441",
+//             slug: "ecologie", // You need to replace this with the actual slug
+//           },
+//           subcategory: {
+//               id: "65e19f848bbb02d4debb8420",
+//               slug: "international", // You need to replace this with the actual slug
+//             },
+//             author: "65e19f008bbb02d4debb840c",
+//             images: [
+//                 { url: "https://res.cloudinary.com/dos8mey8r/image/upload/v1708374346/LeCanard/cute-arctic-mammal-walking-frozen-ice-generated-by-ai_e0sk65.jpg", legend: "Un ours polaire se déplaçant à travers les vastes étendues de neige." },
+//                 { url: "https://res.cloudinary.com/dos8mey8r/image/upload/v1708205392/LeCanard/cute-arctic-mammal-walking-frozen-ice-generated-by-ai_2_faukim.jpg", legend: "Un ours polaire se déplaçant à travers les vastes étendues de neige." },
+//       ],
+//             numberOfViews: 0,
+//               createdAt: new Date(),
+//             })
+//             return true
+//           } catch (err) {
+//               console.log(err);
+//               throw err; // Rethrow the error to handle it at a higher level
+//           }
           
           
-          }
+//           }
           
           export const getArticleById = async (id: string): Promise<TArticle> => {
             await dbConnect();
@@ -251,26 +255,4 @@ export const createAuthor = async () => {
           
           
           
-
-
-
-
-
-// export const createArticle = async () => {
-//     try {
-//       const newArticle: TArticle = await Article.create({
-//         title: "Sample Article",
-//         content: ["Lorem ipsum content"],
-//         category: "65e19fae8bbb02d4debb8441",
-//         author: "John Doe",
-//         images: [{url : "https://res.cloudinary.com/dos8mey8r/image/upload/v1708163477/LeCanard/cute-arctic-mammal-walking-frozen-ice-generated-by-ai_nuwyj0.jpg", legend: "une description imagée de la photos"}],
-//       });
-  
-//       return { msg: "success", article: newArticle };
-//     } catch (err) {
-//       console.error(err);
-//       return { msg: "error", error: err.message };
-//     }
-// };
-
 

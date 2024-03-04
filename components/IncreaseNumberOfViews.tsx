@@ -9,7 +9,7 @@ const IncreaseNumberOfViews = ({id}: {id: string}) => {
         const res = increaseViewsById(id)
     },[id])
   return (
-    <div>IncreaseNumberOfViews</div>
+    <div></div>
   )
 }
 

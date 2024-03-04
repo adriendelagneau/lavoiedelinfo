@@ -8,7 +8,7 @@ const MainGutter = async () => {
 
   return (
     <div className="w-[250px] min-h-screen">
-      <p className='pb-8 text-2xl font-semibold capitalize'>last pucications</p>
+      <p className='pb-8 text-3xl capitalize'>derniers articles</p>
       <ul>
         {articles.data?.map((a, i) => (
           <div key={i}>
