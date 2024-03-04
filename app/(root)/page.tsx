@@ -1,5 +1,5 @@
 import { createCat, createSub } from "@/actions/categoryActions";
-import { createArticle, createAuthor, getArticles } from "@/actions/articlesActions";
+import {  createAuthor, getArticles } from "@/actions/articlesActions";
 import MainGutter from "@/components/MainGutter";
 import MainCard from "@/components/cards/MainCard";
 import Image from "next/image";
