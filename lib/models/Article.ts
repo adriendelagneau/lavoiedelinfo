@@ -11,11 +11,11 @@ const articleSchema = new Schema({
   content: [{ type: String, required: true }],
   category: {
     id: { type: Schema.Types.ObjectId, ref: "Category", required: true },
-    slug: { type: String, required: true,  unique: true },
+    slug: { type: String, required: true },
   },
   subcategory: {
     id: { type: Schema.Types.ObjectId, ref: "Subcategory" },
-    slug: { type: String,  unique: true },
+    slug: { type: String },
   },
   author: { type: Schema.Types.ObjectId, ref: "Author", required: true },
   images: [imageSchema],

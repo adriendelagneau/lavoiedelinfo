@@ -1,39 +1,20 @@
 "use client"
 
-import React, { useEffect } from 'react'
-import axios from "axios"
+import React, { useEffect, useState } from 'react'
+import { handleVisitor } from '@/actions/VisitorActions';
 const HandleVisitor = ({ip}: {ip: string}) => {
 
- 
+ const [canBeView, setCanBeView] = useState(true)
     
   useEffect(() => {
     // Check if visitor exists
     const getAsyncVisitor = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/check_visitor`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ ip }),
-        });
-  
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-  
-        const data = await response.text();
-  
-        // Check if the response contains data
-        if (data) {
-          try {
-            const jsonData = JSON.parse(data);
-            console.log(jsonData); // Assuming you want to log the response data
-          } catch (jsonError) {
-            console.error('Error parsing JSON data:', jsonError);
-          }
-        } else {
-          console.warn('Empty response from the server');
+        const response = await handleVisitor({ip})
+        console.log(response)
+        
+        if (response.msg === "Already 3 views") {
+          setCanBeView(false)
         }
       } catch (error) {
         console.error('Error while fetching visitor data:', error);
@@ -48,7 +29,12 @@ const HandleVisitor = ({ip}: {ip: string}) => {
     
 
   return (
+    <>
     <div>HandleVisitor</div>
+      {canBeView === false && (
+        <div>limit 3 viws/day subscibe for more content</div>
+    )}
+    </>
   )
 }
 
